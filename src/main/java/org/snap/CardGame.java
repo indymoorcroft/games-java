@@ -1,6 +1,8 @@
 package org.snap;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CardGame {
     private static ArrayList<Card> deckOfCards = new ArrayList<>(52);
@@ -31,4 +33,29 @@ public class CardGame {
     public ArrayList<Card> getDeck(){
         return deckOfCards;
     }
+
+    public Card dealCard(){
+        if (!deckOfCards.isEmpty()) {
+            return deckOfCards.removeFirst();
+        }
+        return null;
+    }
+
+    public ArrayList<Card> sortDeckInNumberOrder() {
+        deckOfCards.sort(Comparator.comparing(Card::getValue));
+        return deckOfCards;
+    }
+
+    public ArrayList<Card> sortDeckIntoSuits() {
+        deckOfCards.sort(Comparator.comparing(Card::getSuit).thenComparing(Card::getValue));
+        return deckOfCards;
+    }
+
+    public ArrayList<Card> shuffleDeck() {
+        ArrayList<Card> copy = new ArrayList<>(deckOfCards);
+        Collections.shuffle(copy);
+        deckOfCards = copy;
+        return deckOfCards;
+    }
+
 }
