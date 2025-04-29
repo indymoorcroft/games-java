@@ -4,6 +4,7 @@ public class Main
 {
     public static void main( String[] args )
     {
-        CardGame snap = new CardGame("Snap");
+        Snap snap = new Snap("Indi");
+        snap.play();
     }
 }
