@@ -11,13 +11,13 @@ public class CardTest {
 
     @BeforeEach
     void setUp(){
-        card = new Card("♥", "A", 1);
+        card = new Card(Suit.HEARTS, "A", 1);
     }
 
     @Test
     @DisplayName("toString returns correct card description")
     void toString_CardProperties_ReturnsCorrectDescription () {
-        String result = "(suit: ♥, symbol: A, value: 1)";
+        String result = "A ♥";
         assertEquals(result, card.toString());
     }
 }

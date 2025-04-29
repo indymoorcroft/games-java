@@ -1,17 +1,17 @@
 package org.snap;
 
 public class Card {
-    private String suit;
-    private String symbol;
-    private int value;
+    private final Suit suit;
+    private final String symbol;
+    private final int value;
 
-    public Card(String suit, String symbol, int value){
+    public Card(Suit suit, String symbol, int value){
         this.suit = suit;
         this.symbol = symbol;
         this.value = value;
     }
 
-    public String getSuit() {
+    public Suit getSuit() {
         return suit;
     }
 
@@ -25,6 +25,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "(suit: " + suit + ", symbol: " + symbol + ", value: " + value + ")";
+        return  symbol + " " + suit.getSymbol();
     }
 }
