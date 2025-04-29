@@ -26,10 +26,10 @@ public class CardGameTest {
     @Order(2)
     @DisplayName("getDeck returns all cards in correct order after creation")
     void getDeck_ReturnsCorrectCards(){
-        String firstCard = "(suit: ♥, symbol: A, value: 1)";
+        String firstCard = "A ♥";
         assertEquals(firstCard, cardGame.getDeck().getFirst().toString());
 
-        String lastCard = "(suit: ♠, symbol: K, value: 13)";
+        String lastCard = "K ♠";
         assertEquals(lastCard, cardGame.getDeck().get(51).toString());
     }
 
@@ -50,17 +50,17 @@ public class CardGameTest {
         ArrayList<Card> sortedBySuitAndNum = cardGame.sortDeckIntoSuits();
 
         assertEquals(1, sortedBySuitAndNum.getFirst().getValue());
-        assertEquals("♠", sortedBySuitAndNum.getFirst().getSuit());
+        assertEquals("♥", sortedBySuitAndNum.getFirst().getSuit().getSymbol());
 
         assertEquals(2, sortedBySuitAndNum.get(1).getValue());
-        assertEquals("♠", sortedBySuitAndNum.get(1).getSuit());
+        assertEquals("♥", sortedBySuitAndNum.get(1).getSuit().getSymbol());
     }
 
     @Test
     @Order(5)
     @DisplayName("dealCard returns the first card in the deck")
     void dealCard_DealsTopCard_ReturnsFirstCard() {
-        String firstCard = "(suit: ♠, symbol: A, value: 1)";
+        String firstCard = "A ♥";
         assertEquals(firstCard, cardGame.dealCard().toString());
     }
 
