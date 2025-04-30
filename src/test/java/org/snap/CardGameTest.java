@@ -12,7 +12,7 @@ public class CardGameTest {
 
     @BeforeEach
     void setUp(){
-        cardGame = new CardGame("Snap");
+        cardGame = new Snap("Indi");
     }
 
     @Test

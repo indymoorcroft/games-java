@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class CardGame {
+public abstract class CardGame implements Playable {
     protected static ArrayList<Card> deckOfCards = new ArrayList<>(52);
     protected String name;
 
@@ -30,10 +30,7 @@ public class CardGame {
     }
 
     public Card dealCard(){
-        if (!deckOfCards.isEmpty()) {
-            return deckOfCards.removeFirst();
-        }
-        return null;
+        return deckOfCards.isEmpty() ? null : deckOfCards.removeFirst();
     }
 
     public ArrayList<Card> sortDeckInNumberOrder() {
@@ -53,5 +50,7 @@ public class CardGame {
         Collections.shuffle(deckOfCards);
         return deckOfCards;
     }
+
+    public abstract void play();
 
 }

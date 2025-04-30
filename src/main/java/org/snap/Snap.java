@@ -8,8 +8,10 @@ public class Snap extends CardGame {
         super(name);
     }
 
+    @Override
     public void play() {
         resetDeck();
+
         shuffleDeck();
 
         System.out.println("Hello " + name);
