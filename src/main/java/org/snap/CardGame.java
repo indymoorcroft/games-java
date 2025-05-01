@@ -6,10 +6,12 @@ import java.util.Comparator;
 
 public abstract class CardGame implements Playable {
     protected static ArrayList<Card> deckOfCards = new ArrayList<>(52);
-    protected String name;
+    protected Player playerOne;
+    protected Player playerTwo;
 
-    public CardGame(String name){
-        this.name = name;
+    public CardGame(Player playerOne, Player playerTwo){
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
     }
 
     public static void resetDeck() {
