@@ -12,7 +12,7 @@ public class CardGameTest {
 
     @BeforeEach
     void setUp(){
-        cardGame = new Snap("Indi");
+        cardGame = new Snap(new Player("Player 1", false), new Player("Computer", true));
     }
 
     @Test
