@@ -31,7 +31,16 @@ public class Snap extends CardGame {
             System.out.println(currentCard);
 
             if (isSnap(previousCard, currentCard)) {
-                System.out.println("SNAP! " + currentPlayer.getName() + " wins!");
+                boolean success = snapInput();
+
+                if(success){
+                    System.out.println("Correct! " + currentPlayer.getName() + " wins!");
+                } else {
+                    System.out.println("Too slow! " + currentPlayer.getName() + " loses!");
+                    Player winner = (currentPlayer == playerOne) ? playerTwo : playerOne;
+                    System.out.println(winner.getName() + " wins!");
+                }
+
                 return;
             } else {
                 previousCard = currentCard;
@@ -48,5 +57,25 @@ public class Snap extends CardGame {
 
     private boolean isSnap(Card prevCard, Card currCard) {
         return prevCard != null && currCard.getSymbol().equals(prevCard.getSymbol());
+    }
+
+    private boolean snapInput () {
+        final String[] result = {null};
+
+        Thread inputThread = new Thread(() -> {
+            Scanner snapScanner = new Scanner(System.in);
+            String input = snapScanner.nextLine().trim().toLowerCase();
+            result[0] = input;
+        });
+
+        inputThread.start();
+
+        try {
+            inputThread.join(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        return "snap".equals(result[0]);
     }
 }
