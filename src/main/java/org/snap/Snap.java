@@ -4,55 +4,54 @@ import java.util.Scanner;
 
 public class Snap extends CardGame {
 
+    boolean keepPlaying = true;
+    boolean gameOver = false;
+    Scanner scanner = new Scanner(System.in);
+
     public Snap(Player playerOne, Player playerTwo) {
         super(playerOne, playerTwo);
     }
 
     @Override
     public void play() {
-        resetGame();
 
-        Player currentPlayer = playerOne;
-        Card previousCard = null;
-        Scanner scanner = new Scanner(System.in);
+        while(keepPlaying){
+            resetGame();
 
-        while(!deckOfCards.isEmpty()){
+            Player currentPlayer = playerOne;
+            Card previousCard = null;
 
-            System.out.printf("\n%s's turn. Press ENTER to draw a card.\n", currentPlayer.getName());
-            scanner.nextLine();
+            while(!deckOfCards.isEmpty() && !gameOver){
 
-            Card currentCard = dealCard();
+                System.out.printf("\n%s's turn. Press ENTER to draw a card.\n", currentPlayer.getName());
+                scanner.nextLine();
 
-            if(currentCard == null) {
-                System.out.println("No more cards. It's a draw!");
-                return;
-            }
+                Card currentCard = dealCard();
 
-            System.out.println(currentCard);
-
-            if (isSnap(previousCard, currentCard)) {
-                boolean success = snapInput();
-
-                if(success){
-                    System.out.println("Correct! " + currentPlayer.getName() + " wins!");
-                } else {
-                    System.out.println("Too slow! " + currentPlayer.getName() + " loses!");
-                    Player winner = (currentPlayer == playerOne) ? playerTwo : playerOne;
-                    System.out.println(winner.getName() + " wins!");
+                if(currentCard == null) {
+                    System.out.println("No more cards. It's a draw!");
+                    return;
                 }
 
-                return;
-            } else {
-                previousCard = currentCard;
-                currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
+                System.out.println(currentCard);
+
+                if (isSnap(previousCard, currentCard)) {
+                    boolean success = snapInput();
+                    printWinner(currentPlayer, success);
+                    gameOver = true;
+                } else {
+                    previousCard = currentCard;
+                    currentPlayer = (currentPlayer == playerOne) ? playerTwo : playerOne;
+                }
             }
+            playAgain();
         }
     }
 
     private void resetGame() {
         resetDeck();
         shuffleDeck();
-        System.out.println("Hello! It's " + playerOne.getName() + " vs " + playerTwo.getName() + " Find two of the same value to win!");
+        System.out.printf("\nHello! It's %s vs %s! The score is %d-%d\nHow to: When two of the same values are drawn on your turn you have 2 seconds to type 'snap' to win!\n", playerOne.getName(), playerTwo.getName(), playerOne.getScore(), playerTwo.getScore());
     }
 
     private boolean isSnap(Card prevCard, Card currCard) {
@@ -78,4 +77,55 @@ public class Snap extends CardGame {
 
         return "snap".equals(result[0]);
     }
+
+    public void printWinner(Player currentPlayer, boolean success) {
+        if(success){
+            System.out.printf("\nCorrect! %s wins!\n", currentPlayer.getName());
+            currentPlayer.incrementScore();
+        } else {
+            System.out.printf("\nToo slow! %s loses!\n", currentPlayer.getName());
+            Player winner = (currentPlayer == playerOne) ? playerTwo : playerOne;
+            winner.incrementScore();
+            System.out.println(winner.getName() + " wins!");
+        }
+    }
+
+    public void playAgain() {
+        System.out.print("\nPlay again?\ny - YES\nn - NO\n");
+
+        while(gameOver){
+        String input = scanner.nextLine().trim().toLowerCase();
+
+        if(!input.equals("y") && !input.equals("n")){
+            System.out.print("\nInvalid input.\nPlay again?\ny - YES\nn - NO\n");
+        } else {
+            keepPlaying = input.equals("y");
+            gameOver = false;
+        }
+        }
+
+        if(!keepPlaying){
+            getOverallWinner();
+            //Placeholder
+            System.out.printf("Thank you for playing. The final scores:\n%s: %d\n%s: %d", playerOne.getName(), playerOne.getScore(), playerTwo.getName(), playerTwo.getScore());
+        }
+    }
+
+    public void getOverallWinner(){
+        //Get Overall Winner
+    }
 }
+
+//public List<Animal> getOldestAnimals() {
+//    OptionalInt oldestAge = animals
+//            .stream()
+//            .map(a -> a.getAge())
+//            .mapToInt(Integer::intValue)
+//            .max();
+//
+//    List<Animal> oldestAnimals = animals
+//            .stream()
+//            .filter(a -> a.getAge() == oldestAge.orElse(0))
+//            .collect(Collectors.toList());
+//    return oldestAnimals;
+//}

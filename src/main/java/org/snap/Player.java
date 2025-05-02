@@ -4,6 +4,7 @@ public class Player {
 
     private String name;
     private boolean isComputer = false;
+    private int score = 0;
 
     public Player(){};
 
@@ -16,11 +17,15 @@ public class Player {
         return name;
     }
 
-    public void setName(String name) {
-        if(name == null || name.trim().isEmpty()){
-            throw new IllegalArgumentException("Player name must not be empty");
-        }
+    public int getScore() {
+        return score;
+    }
 
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void incrementScore(){
+        score++;
     }
 }

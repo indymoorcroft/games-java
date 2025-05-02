@@ -46,9 +46,6 @@ public abstract class CardGame implements Playable {
     }
 
     public ArrayList<Card> shuffleDeck() {
-//        ArrayList<Card> copy = new ArrayList<>(deckOfCards);
-//        Collections.shuffle(copy);
-//        deckOfCards = copy;
         Collections.shuffle(deckOfCards);
         return deckOfCards;
     }
