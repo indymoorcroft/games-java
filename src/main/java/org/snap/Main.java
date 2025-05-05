@@ -7,31 +7,21 @@ public class Main
     public static void main( String[] args )
     {
         Player playerOne = new Player();
-        boolean correctInput = false;
+        Snap snap;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("How many players?\n1 - One Player\n2 - Two Players\n");
+        String input = InputUtils.getValidInput(scanner, "How many players?\n1 - One Player\n2 - Two Players\n", new String[]{"1", "2"});
 
-        while(!correctInput){
-            String input = scanner.nextLine();
-
-        if(!input.equals("1") && !input.equals("2")){
-            System.out.print("Invalid input.\n1 - One Player\n2 - Two Players\n");
-        } else {
-            correctInput = true;
-
-            playerOne.setName(InputUtils.getValidPlayerName(scanner, "Enter name for Player 1"));
+        playerOne.setName(InputUtils.getValidInput(scanner, "Enter name for Player 1\n"));
 
             if(input.equals("2")){
                 Player playerTwo = new Player();
-                playerTwo.setName(InputUtils.getValidPlayerName(scanner, "Enter name for Player 2"));
-                Snap snap = new Snap(playerOne, playerTwo);
-                snap.play();
-                break;
+                playerTwo.setName(InputUtils.getValidInput(scanner, "Enter name for Player 2\n"));
+                snap = new Snap(playerOne, playerTwo);
+            } else {
+                snap = new Snap(playerOne, new Player("Computer", true));
             }
-                Snap snap = new Snap(playerOne, new Player("Computer", true));
-                snap.play();
-        }
+
+        snap.play();
         }
     }
-}
