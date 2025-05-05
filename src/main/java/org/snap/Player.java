@@ -17,6 +17,10 @@ public class Player {
         return name;
     }
 
+    public boolean isComputer() {
+        return isComputer;
+    }
+
     public int getScore() {
         return score;
     }
